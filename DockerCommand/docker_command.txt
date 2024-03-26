@@ -1,0 +1,48 @@
+
+docker container run --name apa000ex2 -d -p 8080:80 httpd
+docker container stop apa000ex2
+docker container ps -a
+docker container rm apa000ex2
+
+docker container run --name nginx000exd -d -p 8084:80 nginx
+docker container stop nginx000exd
+docker container ps -a
+docker container rm nginx000exd
+
+
+docker container run --name mysql000ex7 -dit -e MYSQL_ROOT_PASSWORD=myrootpass mysql
+docker container ps
+docker container stop mysql000ex7
+docker container rm apa000ex1
+
+docker image rm httpd
+
+
+
+docker network create wordpress000net1
+docker network ls
+docker container run --name mysql000ex11 -dit --net=wordpress000net1 -e MYSQL_ROOT_PASSWORD=myrootpass -e MYSQL_DATABASE=wordpress000db -e MYSQL_USER=wordpress000kun -e MYSQL_PASSWORD=wkunpass mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password 
+docker container run --name wordpress000ex12 -dit --net=wordpress000net1 -p 8085:80 -e WORDPRESS_DB_HOST=mysql000ex11 -e WORDPRESS_DB_NAME=wordpress000db -e WORDPRESS_DB_USER=wordpress000kun -e WORDPRESS_DB_PASSWORD=wkunpass wordpress:5.5
+
+
+
+docker network create redmine000net2
+docker network  ls
+docker container run --name mysql000ex13 -dit --net=redmine000net2 -e MYSQL_ROOT_PASSWORD=myrootpass -e MYSQL_DATABASE=redmine000db -e MYSQL_USER=redmine000kun -e MYSQL_PASSWORD=rkunpass mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password 
+docker container run --name redmine000ex14 -dit --net=redmine000net2 -p 8086:80 -e REDMINE_DB_HOST=mysql000ex13 -e REDMINE_DB_NAME=redmine000db -e REDMINE_DB_USER=redmine000kun -e REDMINE_DB_PASSWORD=rkunpass redmine
+
+
+docker volume create apa000vol1
+docker volume inspect apa000vol1
+docker volume rm apa000vol1
+
+
+docker container run --name apa00ex21 -d -p 8090:80 httpd -v apa000vol1:apa00ex21:/usr/local/apache2/htdocs httpd
+docker container run --name apa00ex22 -d -p 8092:80 httpd
+docker commit apa00ex22 ex22_original1
+docker image ls
+
+docker build -t ex22_original3 /c/Users/YusukeIkeda/projects/www/00_docker/dockerfile1
+docker container run --name ex22_original3 -d -p 8090:80 ex22_original3
+docker container run --name apa000ex23 -it -p 8089:80 httpd /bin/bash
+docker exec --name apa000ex23 -it -p /bin/bash
