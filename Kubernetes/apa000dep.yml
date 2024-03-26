@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apa000dep
+  labels:
+    app: apa000kube
+spec:
+  selector:
+    matchLabels:
+      app: apa000kube
+  replicas: 5
+  template:
+    metadata:
+      name: apa000pod
+      labels:
+        app: apa000kube
+    spec:
+      containers:
+        - name: apa000ex91
+          image: httpd
+          ports:
+          - containerPort: 80
+
+
+
+# デプロイメントの作成
+# $ kubectl apply -f /c/Users/UserName/projects/kubernetes/apa000dep.yml
+# deployment.apps/apa000dep created
+
+# デプロイメントの作成確認
+# $ kubectl get pods
+# NAME                         READY   STATUS    RESTARTS   AGE
+# apa000dep-66b45668d9-27scl   1/1     Running   0          33s
+# apa000dep-66b45668d9-ht8bk   1/1     Running   0          33s
+# apa000dep-66b45668d9-rl2fr   1/1     Running   0          33s
+
+# サービスの作成
+# $ kubectl apply -f /c/Users/UserName/projects/kubernetes/apa000ser.yml
+# service/apa000ser created
+
+# 表示確認
+# 以下にアクセスするとApacheの初期画面が表示される
+# http://localhost:30080/
+
+# デプロイメントの削除
+# $ kubectl delete -f /c/Users/UserName/projects/kubernetes/apa000dep.yml
+# deployment.apps "apa000dep" deleted
+
+#デプロイメントの削除確認
+# $ kubectl get deployment
+# No resources found in default namespace.
+
+# サービスの削除
+# $ kubectl delete -f /c/Users/UserName/projects/kubernetes/apa000ser.yml
+# service "apa000ser" deleted
+
+# サービスの削除確認
+# $ kubectl get service
+# NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+# kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   95m
