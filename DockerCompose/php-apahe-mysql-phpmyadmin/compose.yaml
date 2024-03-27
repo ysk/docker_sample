@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: testdb
+      MARIADB_USER: testuser
+      MARIADB_PASSWORD: testpass
+    volumes:
+      - db-data:/var/lib/mysql
+  php:
+    build:
+        dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8800:80"
+    volumes:
+      - ./src:/var/www/html
+  phpmyadmin:
+    image: phpmyadmin:latest
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: testuser
+      PMA_PASSWORD: testpass
+    ports:
+      - "4040:80"
+    volumes:
+      - phpmyadmin-data:/sessions
+volumes:
+  db-data:
+  phpmyadmin-data:
+
+
+
