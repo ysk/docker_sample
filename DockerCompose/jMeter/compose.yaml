@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    image: guitarrapc/jmeter-gui:latest
+    tty: true
+    volumes:
+      - ./scenario/:/root/jmeter/
+    ports:
+      - 5900:5900
+      - 3390:3389
+
+
+#参考記事
+#DockerでjMeterを使う方法
+#https://qiita.com/SNobu/items/ebe128e2c08137603f7b
+
+#[JMeter] JMeter による負荷試験の実施手順
+#https://qiita.com/ksh-fthr/items/1e76f9be5260b61c861c
+
