@@ -2,12 +2,11 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
-rule_file:
+rule_files:
 - /etc/prometheus/alert.rules
 
 scrape_configs:
 - job_name: 'prometheus'
   static_configs:
     - targets:
-      - prometheus: 9090
-
+      - localhost:9090
