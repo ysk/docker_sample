@@ -1,0 +1,18 @@
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
+$ kubectl get pod --namespace=kubernetes-dashboard
+$ kubectl proxy
+
+ダッシュボードのURL
+http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy
+
+
+マニフェストファイルでadminユーザーの作成
+$ kubectl apply -f dashboard-user.yml
+serviceaccount/admin-user created
+clusterrolebinding.rbac.authorization.k8s.io/admin-user created
+
+マニフェストファイルでトークンを発行
+$ kubectl -n kubernetes-dashboard create token admin-user
+eyJhbGciOiJSUzI1NiIsImtpZCI6Ikxndng0WFUzV0VvX2c3S................
+
+$ kubectl get node

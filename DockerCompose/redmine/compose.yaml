@@ -1,40 +1,35 @@
 version: "3"
 
+## 以下のようにDBを起動してからredmineを起動するとトラブルに遭遇しにくい
+# docker compose up -d redmine-db                                                                                                                                                                                                                        0.0s 
+# docker compose up -d redmine
+
 services:
-  mysql000ex13:
-    image: mysql:5.7
-    networks:
-      - redmine000net2
+  redmine:
+    image: redmine:latest
     volumes:
-      - mysql000vol13:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql000ex13
-      MYSQL_DATABASE: redmine_db
-      MYSQL_USER: redmine_user
-      MYSQL_PASSWORD: redmine_pass
-  
-  redmine000ex13:
-    depends_on:
-      - mysql000ex13
-    image: redmine:4.0.5-passenger
-    networks:
-      - redmine000net2
-    volumes:
-      - redmine000vol12:/var/www/html
+      - ./redmine/data/plugins:/usr/src/redmine/plugins
+      - ./redmine/data/themes:/usr/src/redmine/public/themes
     ports:
-      - 8086:80
-    restart: always
+      - "80:3000"
+    depends_on:
+      - redmine-db
     environment:
-      TZ: Asia/Tokyo
-      REDMINE_DB_MYSQL: mysql000ex13
-      REDMINE_DB_DATABASE: redmine_db
+      REDMINE_DB_MYSQL: redmine-db
+      REDMINE_DB_DATABASE: redmine
       REDMINE_DB_USERNAME: redmine_user
       REDMINE_DB_PASSWORD: redmine_pass
+      TZ: Asia/Tokyo
 
-networks:
-  redmine000net2:
-volumes:
-  mysql000vol13:
-  redmine000vol12:
+  redmine-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: redmine_pass
+      MYSQL_DATABASE: redmine
+      MYSQL_USER: redmine_user
+      MYSQL_PASSWORD: redmine_pass
+      TZ: Asia/Tokyo
+    volumes:
+      - ./db/dbdata:/var/lib/mysql
+    user: "1000:1000"
 
