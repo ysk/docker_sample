@@ -1,35 +1,15 @@
 version: "3"
-
-## 以下のようにDBを起動してからredmineを起動するとトラブルに遭遇しにくい
-# docker compose up -d redmine-db                                                                                                                                                                                                                        0.0s 
-# docker compose up -d redmine
-
 services:
-  redmine:
-    image: redmine:latest
-    volumes:
-      - ./redmine/data/plugins:/usr/src/redmine/plugins
-      - ./redmine/data/themes:/usr/src/redmine/public/themes
+  jenkins-master:
+    image: jenkins/jenkins:lts
     ports:
-      - "80:3000"
-    depends_on:
-      - redmine-db
-    environment:
-      REDMINE_DB_MYSQL: redmine-db
-      REDMINE_DB_DATABASE: redmine
-      REDMINE_DB_USERNAME: redmine_user
-      REDMINE_DB_PASSWORD: redmine_pass
-      TZ: Asia/Tokyo
-
-  redmine-db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: redmine_pass
-      MYSQL_DATABASE: redmine
-      MYSQL_USER: redmine_user
-      MYSQL_PASSWORD: redmine_pass
-      TZ: Asia/Tokyo
+      - "8800:8080"
+      - "50000:50000"
     volumes:
-      - ./db/dbdata:/var/lib/mysql
-    user: "1000:1000"
-
+      - jenkins-data:/var/jenkins_home
+    environment:
+      TZ: Asia/Tokyo
+      JAVA_OPTS: -Duser.timezone=Asia/Tokyo -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+      user: "1000:1000"
+volumes:
+  jenkins-data:
