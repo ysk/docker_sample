@@ -20,12 +20,18 @@
 ## CI/CDツール
 - jenkins
 
+## 監視ツール
+- prometheus
+
+## 全文検索・分析
+- Elasticsearch・Kibana
+
 ## PHP開発環境
 - php-apahe-mysql
 - php-apahe-mysql-phpmyadmin
 
 
-## フレームワーク・CSM
+## フレームワーク・CMS
 - django
 - rubiy_on_rails
 - wordpress
