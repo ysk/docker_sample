@@ -9,5 +9,6 @@
 *.tfvars
 
 /git-secrets/*
+**/db/*
 .vscode/
 .env
