@@ -32,8 +32,9 @@
 
 
 ## フレームワーク・CMS
-- django
+- laravel-php-nginx
 - rubiy_on_rails
+- django
 - wordpress
 
 ## プロジェクト管理
