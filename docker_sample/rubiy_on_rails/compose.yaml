@@ -1,11 +1,11 @@
 version: "3"
 services: 
   db: 
-    image: mariadb:10.7
+    image: mariadb:10.9
     environment:
       MARIADB_ROOT_PASSWORD: password
     volumes:
-      - db-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql 
   web:
     build: .
     depends_on:
@@ -15,7 +15,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/samplerails
+      - .:/docker_rails_test  # Railsアプリケーションのソースコードをマウント
+
 volumes:
-  db-data:
+  mariadb-data:  # MariaDBのデータを保存するボリューム
 
