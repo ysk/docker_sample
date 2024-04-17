@@ -1,17 +1,20 @@
-作成したDockerコンテナの中へ入り、Laravelアプリを作成します。
+【手順】
+docker compose up -d
+
 docker compose exec app bash
+作成したDockerコンテナの中へ入り、Laravelアプリを作成します。
 
-Dockerコンテナの中に入れたので、以下コマンドを実行します。
 composer create-project --prefer-dist laravel/laravel laravel-project "10.*"
+Dockerコンテナの中に入れたので、以下コマンドを実行します。
 
-
-storageディレクトリの所有者をwww-dataに変更します。
 cd laravel-project
 chown www-data storage/ -R
+storageディレクトリの所有者をwww-dataに変更します。
 
 Laravelが起動したことを確認するため、ブラウザで以下URLへアクセスします。
 http://localhost:8080
 
 
-参考URL
+【参考】
+DockerでLaravel開発環境を手軽に構築する手順
 https://www.kagoya.jp/howto/cloud/container/docker_laravel/
