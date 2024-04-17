@@ -1,7 +1,7 @@
 # Docker / k8s サンプル
 
 ## Linuxディストリビューション
-- Ubuntu
+- ubuntu
 - debian
 
 ## サーバー
@@ -33,7 +33,8 @@
 
 ## フレームワーク・CMS
 - laravel-php-nginx
-- rubiy_on_rails
+- rubiy_on_rails-mariadb
+- golang-gin
 - django
 - wordpress
 
