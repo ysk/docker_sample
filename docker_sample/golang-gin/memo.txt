@@ -1,0 +1,8 @@
+【参考】
+GO + Gin + Postgres + Dockerの環境構築
+https://zenn.dev/yasu2122/articles/045183cd36add5
+
+
+docker-compose up -d
+docker exec -it app bash
+/usr/local/go/src/web/app # go run main.go
